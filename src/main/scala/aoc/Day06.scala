@@ -9,6 +9,7 @@ object Day06 extends App {
   }
 
   def solution2(answers: Seq[String]): Int = {
+    /* Set intersection approach
     answers.foldLeft(0) { case (acc, answer) =>
       val charSets = answer.split(" ").map(_.toCharArray.toSet)
       var head = charSets.head
@@ -18,39 +19,48 @@ object Day06 extends App {
 
       acc + head.size
     }
-//    answers.foldLeft(0) { case (acc, answer) =>
-//      acc +
-//        answer
-//          .split(" ")
-//          .map(buildBits)
-//          .foldLeft("1" * 26)(bitwiseAnd)
-//          .count(_ == '1')
-//    }
-  }
-
-  //TODO: Figure out how to bits in scala
-  def buildBits(str: String) = {
-    val alphabet = IndexedSeq('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
-
-    val res = alphabet
-      .indices
-      .map { index =>
-        if(str.length <= index || str.charAt(index) != alphabet(index)) '0'
-        else '1'
-      }
-      .foldLeft("")(_ + _)
-    println(res)
-    res
-  }
-
-  def bitwiseAnd(str1: String, str2: String): String = {
-    str1.indices.foldLeft("") { case (acc, index) =>
-      if(str1.charAt(index) == '1' && str2.charAt(index) == '1') acc :+ '1'
-      else acc :+ '0'
+    */
+    
+    // BitSeq approach
+    answers.foldLeft(0) { case (acc, answer) =>
+      acc +
+        answer
+          .split(" ")
+          .map(buildBits)
+          .foldLeft(BitSeq("1" * 26))(_ & _)
+          .cardinality
     }
   }
 
+  def buildBits(str: String): BitSeq = {
+    val availableChars = str.map(_ - 97).toSet
+    val bitString = (0 to 25).foldLeft("") { case (acc, index) =>
+      if(availableChars.contains(index)) acc + '1'
+      else acc + '0'
+    }
+
+    BitSeq(bitString)
+  }
+
   val answers = Utils.consumeText(io.Source.fromResource("day06.txt").getLines.toSeq)
+
+  case class BitSeq private(underlying: IndexedSeq[Boolean]) {
+    def &(other: BitSeq): BitSeq = {
+      val result = underlying.zip(other.underlying).map { case (thisB, thatB) =>
+        thisB && thatB
+      }
+      BitSeq(result)
+    }
+
+    def cardinality: Int = underlying.count(identity)
+  }
+
+  object BitSeq {
+    def apply(bitString: String): BitSeq = {
+      val underlying = bitString.map(_ == '1')
+      BitSeq(underlying)
+    }
+  }
 
   println(solution1(answers))
   println(solution2(answers))
