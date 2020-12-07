@@ -6,15 +6,6 @@ import scala.util.matching.Regex.Match
 
 object Day04 extends App {
 
-  @tailrec
-  def consumeText(lines: Seq[String], strAcc: String = "", seqAcc: Seq[String] = Seq.empty): Seq[String] = {
-    lines.headOption match {
-      case None => seqAcc :+ strAcc
-      case Some("") => consumeText(lines.tail, "", seqAcc :+ strAcc)
-      case Some(str) => consumeText(lines.tail, s"$strAcc$str ", seqAcc)
-    }
-  }
-
   def solution1(passports: Seq[String]): Int = {
     val validProperties = Seq("byr:","iyr:","eyr:","hgt:","hcl:","ecl:","pid:")
     passports.count { config =>
@@ -55,7 +46,7 @@ object Day04 extends App {
     }
   }
 
-  val passports = consumeText(io.Source.fromResource("day04.txt").getLines.toSeq)
+  val passports = Utils.consumeText(io.Source.fromResource("day04.txt").getLines.toSeq)
 
   println(solution1(passports))
   println(solution2(passports))
