@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 import scala.annotation.tailrec
 import scala.math.BigDecimal.double2bigDecimal
@@ -77,7 +77,7 @@ object Day24 extends App {
 
   }
 
-  val tileDirections = io.Source.fromResource("day24.txt").getLines.toSeq
+  val tileDirections = io.Source.fromResource("2020/day24.txt").getLines.toSeq
 
   println(solution1(tileDirections))
   println(solution2(tileDirections))

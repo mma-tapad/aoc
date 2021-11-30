@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 import scala.annotation.tailrec
 import scala.collection.mutable
@@ -83,7 +83,7 @@ object Day11 extends App {
       .sum
   }
 
-  val seatingChart = io.Source.fromResource("day11.txt").getLines.toSeq.map(_.toSeq)
+  val seatingChart = io.Source.fromResource("2020/day11.txt").getLines.toSeq.map(_.toSeq)
 
   println(solution1(seatingChart))
   println(solution2(seatingChart))

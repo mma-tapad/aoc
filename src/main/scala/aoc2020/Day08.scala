@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 import scala.collection.mutable
 
@@ -82,7 +82,7 @@ object Day08 extends App {
   }
 
 
-  val instructions = io.Source.fromResource("day08.txt").getLines.toIndexedSeq
+  val instructions = io.Source.fromResource("2020/day08.txt").getLines.toIndexedSeq
 
   println(solution1(instructions))
   println(solution2(instructions))

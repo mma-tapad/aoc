@@ -1,3 +1,3 @@
-name := "aoc2020"
+name := "aoc"
 
-scalaVersion := "2.13.4"
+scalaVersion := "2.13.7"

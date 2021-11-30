@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 object Day06 extends App {
 
@@ -42,7 +42,7 @@ object Day06 extends App {
     BitSeq(bitString)
   }
 
-  val answers = Utils.consumeText(io.Source.fromResource("day06.txt").getLines.toSeq)
+  val answers = Utils.consumeText(io.Source.fromResource("2020/day06.txt").getLines.toSeq)
 
   case class BitSeq private(underlying: IndexedSeq[Boolean]) {
     def &(other: BitSeq): BitSeq = {

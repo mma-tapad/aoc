@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 object Day10 extends App {
 
@@ -29,7 +29,7 @@ object Day10 extends App {
       .product
   }
 
-  val jolts = io.Source.fromResource("day10.txt").getLines.toArray.map(_.toInt).sorted
+  val jolts = io.Source.fromResource("2020/day10.txt").getLines.toArray.map(_.toInt).sorted
   val realJolts = 0 +: jolts :+ jolts.last + 3
 
   println(solution1(realJolts))

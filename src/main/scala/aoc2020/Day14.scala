@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 object Day14 extends App {
   val maskRegex = "mask = (\\w+)".r
@@ -88,7 +88,7 @@ object Day14 extends App {
     }
   }
 
-  val memoryInstructions = io.Source.fromResource("day14.txt").getLines.toSeq
+  val memoryInstructions = io.Source.fromResource("2020/day14.txt").getLines.toSeq
 
   println(solution1(memoryInstructions))
   println(solution2(memoryInstructions))

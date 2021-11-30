@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 import scala.annotation.tailrec
 import scala.collection.immutable
@@ -57,7 +57,7 @@ object Day16 extends App {
       }
   }
 
-  val tickets = io.Source.fromResource("day16.txt").getLines.toSeq
+  val tickets = io.Source.fromResource("2020/day16.txt").getLines.toSeq
 
   val (rules, myTicket, nearbyTickets, _) = tickets
     .foldLeft((Seq.empty[Rule], Seq.empty[Int], Seq.empty[Seq[Int]], true)) { case ((rules, myTicket, nearbyTickets, readingMyTicket), ticket) =>

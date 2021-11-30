@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 object Day13 extends App {
   def solution1(currTime: Int, buses: Seq[String]): Int = {
@@ -48,7 +48,7 @@ object Day13 extends App {
   }
 
   val (currTime, buses) = {
-    val lines = io.Source.fromResource("day13.txt").getLines.toSeq
+    val lines = io.Source.fromResource("2020/day13.txt").getLines.toSeq
 
     lines.head.toInt -> lines.last.split(",").toSeq
   }

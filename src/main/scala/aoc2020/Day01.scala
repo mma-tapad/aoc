@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 object Day01 extends App {
 
@@ -22,7 +22,7 @@ object Day01 extends App {
       }
   }
 
-  val nums = io.Source.fromResource("day01.txt").getLines.map(_.toInt).toSet
+  val nums = io.Source.fromResource("2020/day01.txt").getLines.map(_.toInt).toSet
 
   println(solution1(nums))
   println(solution2(nums))

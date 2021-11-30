@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 object Day21 extends App {
   val ingredientRegex = """((\w+\s)+)\(""".r
@@ -76,7 +76,7 @@ object Day21 extends App {
   }
 
 
-  val menu = io.Source.fromResource("day21.txt").getLines.toSeq
+  val menu = io.Source.fromResource("2020/day21.txt").getLines.toSeq
 
   println(solution1(menu))
   println(solution2(menu))

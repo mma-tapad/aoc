@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 object Day02 extends App {
 
@@ -15,7 +15,7 @@ object Day02 extends App {
     }
   }
 
-  val pwConfigs = io.Source.fromResource("day02.txt").getLines.toSeq
+  val pwConfigs = io.Source.fromResource("2020/day02.txt").getLines.toSeq
 
   println(solution1(pwConfigs))
   println(solution2(pwConfigs))

@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 import scala.annotation.tailrec
 import scala.util.matching.Regex
@@ -46,7 +46,7 @@ object Day04 extends App {
     }
   }
 
-  val passports = Utils.consumeText(io.Source.fromResource("day04.txt").getLines.toSeq)
+  val passports = Utils.consumeText(io.Source.fromResource("2020/day04.txt").getLines.toSeq)
 
   println(solution1(passports))
   println(solution2(passports))

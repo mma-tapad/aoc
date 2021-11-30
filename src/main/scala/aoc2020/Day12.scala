@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 import scala.annotation.tailrec
 
@@ -103,7 +103,7 @@ object Day12 extends App {
 
     destination.manhattanDistance
   }
-  val directions = io.Source.fromResource("day12.txt").getLines.toSeq.flatMap(parseDirection)
+  val directions = io.Source.fromResource("2020/day12.txt").getLines.toSeq.flatMap(parseDirection)
 
   println(solution1(directions))
   println(solution2(directions))

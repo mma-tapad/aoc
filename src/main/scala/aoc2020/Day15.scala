@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 object Day15 extends App {
 
