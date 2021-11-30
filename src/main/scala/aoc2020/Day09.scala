@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 import scala.collection.mutable
 
@@ -43,7 +43,7 @@ object Day09 extends App {
     sorted.head + sorted.last
   }
 
-  val numbers = io.Source.fromResource("day09.txt").getLines.toSeq.map(_.toLong)
+  val numbers = io.Source.fromResource("2020/day09.txt").getLines.toSeq.map(_.toLong)
 
   val sol1 = solution1(numbers)
 

@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 import scala.annotation.tailrec
 import scala.collection.mutable
@@ -65,7 +65,7 @@ object Day07 extends App {
     traverse2(bagMap, "shiny gold")
   }
 
-  val bagRules = io.Source.fromResource("day07.txt").getLines.toSeq
+  val bagRules = io.Source.fromResource("2020/day07.txt").getLines.toSeq
 
   println(solution1(bagRules))
   println(solution2(bagRules))

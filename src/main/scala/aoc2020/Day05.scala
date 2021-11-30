@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 import scala.annotation.tailrec
 
@@ -42,7 +42,7 @@ object Day05 extends App {
       .head
   }
 
-  val seats = io.Source.fromResource("day05.txt").getLines.toSeq
+  val seats = io.Source.fromResource("2020/day05.txt").getLines.toSeq
 
   println(solution1(seats))
   println(solution2(seats))

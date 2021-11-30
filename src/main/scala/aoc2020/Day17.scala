@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 import scala.annotation.tailrec
 import scala.reflect.ClassTag
@@ -175,7 +175,7 @@ object Day17 extends App {
 
   val space: Array[Array[Array[Char]]] =
     Array(
-      io.Source.fromResource("day17.txt").getLines.toArray
+      io.Source.fromResource("2020/day17.txt").getLines.toArray
         .map(_.toCharArray)
     )
 

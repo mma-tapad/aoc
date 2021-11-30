@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 object Day19 extends App {
   val letterRegex = """(\d+): "(\w)"""".r
@@ -55,7 +55,7 @@ object Day19 extends App {
     rules.count(r => regexHacks.exists(_.matches(r)))
   }
 
-  val rules1 = io.Source.fromResource("day19.txt").getLines.toSeq
+  val rules1 = io.Source.fromResource("2020/day19.txt").getLines.toSeq
   val rules2 = rules1.map {
     case "8: 42" => "8: 42 | 42 8"
     case "11: 42 31" => "11: 42 31 | 42 11 31"

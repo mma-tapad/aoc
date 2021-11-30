@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 import scala.annotation.tailrec
 
@@ -59,7 +59,7 @@ object Day22 extends App {
   val (deck1, deck2) = {
     val regex = """Player \d: (\d+\s*)+""".r
 
-    val line = io.Source.fromResource("day22.txt")
+    val line = io.Source.fromResource("2020/day22.txt")
       .getLines
       .mkString(" ")
 

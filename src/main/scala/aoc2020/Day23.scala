@@ -1,4 +1,4 @@
-package aoc
+package aoc2020
 
 import scala.annotation.tailrec
 
@@ -67,7 +67,7 @@ object Day23 extends App {
     }._1
   }
 
-  val cups = io.Source.fromResource("day23.txt").getLines.next().map(_.toString.toInt).toArray
+  val cups = io.Source.fromResource("2020/day23.txt").getLines.next().map(_.toString.toInt).toArray
   val cups2 = cups ++ (10 to 1000000)
 
   println(solution1(cups))
