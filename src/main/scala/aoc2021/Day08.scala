@@ -16,66 +16,51 @@ object Day08 extends App {
   def solution2(lines: List[String]) = {
     lines.map { line =>
       val split = line.split("\\|")
-      val key = split.head.trim
 
       /**
-       * All digits defined can be defined by their signal length +
-       * existence of either middle, botLeft, or topLeft
-       *  0: length 6 && !middle
+       * All digits defined can be defined by their signal length &&
+       * their intersection with digits 1, 4, 7, or 8
+       *  0: length 6 && intersection with 4 is three signals && contains 1's signals
        *  1: length 2
-       *  2: length 5 && botLeft
-       *  3: length 5 && !botLeft && !topLeft
+       *  2: length 5 && intersection with 4 is two signals
+       *  3: length 5 && contains 1's signals
        *  4: length 4
-       *  5: length 5 && topLeft
-       *  6: length 6 && botLeft
+       *  5: length 5 && intersection with 4 is three signals
+       *  6: length 6 && intersection with 1 is one signal
        *  7: length 4
        *  8: length 7
-       *  9: length 6 && !botLeft
-       *
-       *  Signals can be found using the digits 1, 4, 7, and 8
-       *  topLeft: signal in 4 that is not in 1 and is used 6 times across all digits
-       *  middle:  signal in 4 that is not in 1 and is used 7 times across all digits
-       *  botLeft: signal that is used 4 times across all digits
+       *  9: length 6 && intersection with 4 is four signals
        */
 
-      val keys = key.split("\\s+").toList
-      val onesDigitSignals = keys.find(_.length == 2).get
-      val foursDigitSignals = keys.find(_.length == 4).get
-
-      val (topLeft, middle) = foursDigitSignals
-        .filter(c => !onesDigitSignals.contains(c))
-        .partition { letter =>
-          key.count(_ == letter) == 6
-        }
-
-      val botLeft = key
-        .toCharArray
-        .map(_.toString)
-        .groupBy(identity)
-        .collectFirst {
-          case (k,v) if v.length == 4 => k
-        }
-        .get
+      val keys = split.head.trim.split("\\s+").toList
+      val onesDigitSignals: Set[Char] = keys
+        .filter(_.length == 2)
+        .flatMap(_.toList)
+        .toSet
+      val foursDigitSignals = keys
+        .filter(_.length == 4)
+        .flatMap(_.toList)
+        .toSet
 
       split.last.trim
         .split("\\s+")
         .map { output =>
-          val outputChars: Set[String] = output.map(_.toString).toSet
+          val outputChars: Set[Char] = output.toSet
           output.length match {
             case 2 => "1"
             case 3 => "7"
             case 4 => "4"
             case 5 =>
-              outputChars.contains(topLeft) -> outputChars.contains(botLeft) match {
-                case (true, _) => "5"
-                case (_, true) => "2"
-                case _         => "3"
+              outputChars.intersect(onesDigitSignals).size -> outputChars.intersect(foursDigitSignals).size match {
+                case (_, 2) => "2"
+                case (2, _) => "3"
+                case _      => "5"
               }
             case 6 =>
-              outputChars.contains(middle) -> outputChars.contains(botLeft) match {
-                case (false, _) => "0"
-                case (_, true) => "6"
-                case _ => "9"
+              outputChars.intersect(onesDigitSignals).size -> outputChars.intersect(foursDigitSignals).size match {
+                case (2, 3) => "0"
+                case (1, _) => "6"
+                case _      => "9"
               }
             case 7 => "8"
           }
