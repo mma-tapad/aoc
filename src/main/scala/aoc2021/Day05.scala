@@ -1,5 +1,7 @@
 package aoc2021
 
+import aoc2021.Utils.Point
+
 object Day05 extends App {
   def countPoints(lineSeq: Seq[Line]): Map[Point, Int] = {
     lineSeq.foldLeft(Map.empty[Point, Int]) { case (countMap, straightLine) =>
@@ -34,7 +36,6 @@ object Day05 extends App {
   println(solution2(lines))
 }
 
-case class Point(x: Int, y: Int)
 case class Line(start: Point, end: Point) {
   def isStraight: Boolean = start.x == end.x || start.y == end.y
 
