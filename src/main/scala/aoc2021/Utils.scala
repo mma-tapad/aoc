@@ -13,5 +13,10 @@ object Utils {
           neighbor.inBounds(maxX, maxY) && isValid(neighbor)
         }
     }
+
+    def findDiagonals(maxX: Int, maxY: Int): List[Point] = {
+      List(Point(x-1,y-1), Point(x+1,y+1), Point(x+1,y-1), Point(x-1,y+1))
+        .filter(_.inBounds(maxX, maxY))
+    }
   }
 }
