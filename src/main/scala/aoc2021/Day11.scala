@@ -35,10 +35,10 @@ object Day11 extends App {
     }.sum
   }
 
-    def solution2(lines: Array[String]): Option[Long] = {
+    def solution2(lines: Array[String]): Option[Int] = {
       val grid: Array[Array[Int]] = lines.map(_.toCharArray.map(_.asDigit))
 
-      (0 until Long.MaxValue).find { _ =>
+      (0 until Int.MaxValue).find { _ =>
         grid.indices.foldLeft(0, Set.empty[Point]) { case ((ycounterAcc, yflashedAcc), y) =>
           grid.head.indices.foldLeft((ycounterAcc, yflashedAcc)) { case ((xcounterAcc, xflashedAcc), x) =>
             incrementEnergy(Point(x, y), grid)(xcounterAcc, xflashedAcc)
