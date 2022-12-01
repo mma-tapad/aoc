@@ -1,33 +1,32 @@
 package aoc2021
 
 import aoc2021.Utils.Point
-
 import scala.annotation.tailrec
 
 object Day15 extends App {
   type Risk = Int
 
   @tailrec
-  def exploreRisks(curr: Point, prev: Option[Point])
+  def exploreRisks(to: Point, from: Option[Point])
                   (maxX: Int, maxY: Int,
                    shortestDistances: Map[Point, Risk],
                    pathsVisited: Set[(Point, Point)],
-                   risksByPoint: Map[Point, Risk],
-                   pathsToVisit: List[(Point, Point)]
+                   pathsToVisit: List[(Point, Point)],
+                   risksByPoint: Map[Point, Risk]
                   ): (Map[Point, Risk], Set[(Point, Point)], List[(Point, Point)]) = {
 
-    val totalRisk = prev.fold(0)(shortestDistances(_) + risksByPoint(curr))
-    val updatedPathsVisited = prev.fold(pathsVisited)(p => pathsVisited.incl((p, curr)))
+    val totalRisk = from.fold(0)(shortestDistances(_) + risksByPoint(to))
+    val updatedPathsVisited = from.fold(pathsVisited)(p => pathsVisited.incl((p, to)))
 
     // if we've been here before for cheaper, move on.
     // if this is the cheapest we've made it here, update my shortest path,
     // but also update the shortest paths to our neighbors if we've been to them through us already
-    val updatedShortestDistances = shortestDistances.get(curr) match {
+    val updatedShortestDistances = shortestDistances.get(to) match {
       case Some(dist) if totalRisk >= dist => shortestDistances
       case _                               =>
-        curr
-          .findValidNeighbors(maxX, maxY)(neighbor => updatedPathsVisited.contains((curr, neighbor)))
-          .foldLeft(shortestDistances.updated(curr, totalRisk)) { case (dists, visitedNeighbor) =>
+        to
+          .findValidNeighbors(maxX, maxY)(neighbor => updatedPathsVisited.contains((to, neighbor)))
+          .foldLeft(shortestDistances.updated(to, totalRisk)) { case (dists, visitedNeighbor) =>
             val possibleNeighborDistance = totalRisk + risksByPoint(visitedNeighbor)
             if(possibleNeighborDistance < dists(visitedNeighbor)) {
               dists.updated(visitedNeighbor, possibleNeighborDistance)
@@ -40,13 +39,13 @@ object Day15 extends App {
     // if we've run out of paths to consume, done
     // if we have neighbors, put them in the queue and explore one neighbor
     // if we have paths in the queue, explore them
-    (curr.findValidNeighbors(maxX, maxY)(neighbor => !pathsVisited.contains((curr, neighbor))), pathsToVisit) match {
+    (to.findValidNeighbors(maxX, maxY)(neighbor => !pathsVisited.contains((to, neighbor))), pathsToVisit) match {
       case (Nil, Nil) => (updatedShortestDistances, updatedPathsVisited, pathsToVisit)
       case (headNeighbor :: tail, paths) =>
-        val newPathsToVisit = tail.map(curr -> _)
-        exploreRisks(headNeighbor, Some(curr))(maxX, maxY, updatedShortestDistances, updatedPathsVisited, risksByPoint, paths ++ newPathsToVisit)
+        val newPathsToVisit = tail.map(to -> _)
+        exploreRisks(headNeighbor, Some(to))(maxX, maxY, updatedShortestDistances, updatedPathsVisited, paths ++ newPathsToVisit, risksByPoint)
       case (Nil, (from, to) :: tail) =>
-        exploreRisks(to, Some(from))(maxX, maxY, updatedShortestDistances, updatedPathsVisited, risksByPoint, tail)
+        exploreRisks(to, Some(from))(maxX, maxY, updatedShortestDistances, updatedPathsVisited, tail, risksByPoint)
     }
   }
 
@@ -59,7 +58,7 @@ object Day15 extends App {
       }
     }.toMap
 
-    val (shortestDists, _, _) = exploreRisks(Point(0,0), None)(maxX, maxY, Map.empty, Set.empty, risksByPoint, Nil)
+    val (shortestDists, _, _) = exploreRisks(Point(0,0), None)(maxX, maxY, Map.empty, Set.empty, Nil, risksByPoint)
     shortestDists(Point(maxX-1, maxY-1))
   }
 
