@@ -25,8 +25,8 @@ object Day03 extends App {
       .sum
   }
 
-  val nums = io.Source.fromResource("2022/day03.txt").getLines.toList
+  val rucksacks = io.Source.fromResource("2022/day03.txt").getLines.toList
 
-  println(solution1(nums))
-  println(solution2(nums))
+  println(solution1(rucksacks))
+  println(solution2(rucksacks))
 }

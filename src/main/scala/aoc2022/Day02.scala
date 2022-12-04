@@ -6,9 +6,9 @@ object Day02 extends App {
       val (oppMove, myMove) = Move(first) -> Move(second)
 
       myMove.score + (myMove match {
-        case m if m == oppMove.beats => 0
+        case m if m == oppMove.beats    => 0
         case m if m == oppMove.beatenBy => 6
-        case _ => 3
+        case _                          => 3
       })
     }
     .sum
@@ -27,7 +27,7 @@ object Day02 extends App {
     .sum
   }
 
-  val nums = io.Source.fromResource("2022/day02.txt")
+  val moves = io.Source.fromResource("2022/day02.txt")
     .getLines
     .map { line =>
       val arr = line.split(" ")
@@ -35,8 +35,8 @@ object Day02 extends App {
     }
     .toList
 
-  println(solution1(nums))
-  println(solution2(nums))
+  println(solution1(moves))
+  println(solution2(moves))
 }
 
 sealed trait Move {
