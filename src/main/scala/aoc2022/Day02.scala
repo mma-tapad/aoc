@@ -1,6 +1,9 @@
 package aoc2022
 
 object Day02 extends App {
+
+  // Find who wins given two RPS moves. 6pts for win, 3 for draw, 0 for loss.
+  // Also, 3pts for playing Scissors, 2pts for Paper, 1pt for Rock.
   def solution1(moves: List[(Char, Char)]): Int = {
     moves.map { case (first, second) =>
       val (oppMove, myMove) = Move(first) -> Move(second)
@@ -14,15 +17,16 @@ object Day02 extends App {
     .sum
   }
 
-
+  // Find the correct response move given the goal provided. Same scoring as above.
   def solution2(moves: List[(Char, Char)]): Int = {
     moves.map { case (first, second) =>
       val (oppMove, goal) = Move(first) -> Goal(second)
-      goal match {
-        case Win  => 6 + oppMove.beatenBy.score
+
+      goal.score + (goal match {
+        case Win  => oppMove.beatenBy.score
         case Lose => oppMove.beats.score
-        case _    => 3 + oppMove.score
-      }
+        case _    => oppMove.score
+      })
     }
     .sum
   }
@@ -42,22 +46,22 @@ object Day02 extends App {
 sealed trait Move {
   def beats: Move
   def beatenBy: Move
-  def score: Int
+  val score: Int
 }
 case object Rock extends Move {
   def beats: Move = Scissors
   def beatenBy: Move = Paper
-  def score = 1
+  val score = 1
 }
 case object Paper extends Move {
   def beats: Move = Rock
   def beatenBy: Move = Scissors
-  def score = 2
+  val score = 2
 }
 case object Scissors extends Move {
   def beats: Move = Paper
   def beatenBy: Move = Rock
-  def score = 3
+  val score = 3
 }
 
 object Move {
@@ -68,10 +72,18 @@ object Move {
   }
 }
 
-sealed trait Goal
-case object Win extends Goal
-case object Lose extends Goal
-case object Draw extends Goal
+sealed trait Goal {
+  val score: Int
+}
+case object Win extends Goal {
+  val score = 6
+}
+case object Lose extends Goal {
+  val score = 0
+}
+case object Draw extends Goal {
+  val score = 3
+}
 
 object Goal {
   def apply(c: Char): Goal = c match {

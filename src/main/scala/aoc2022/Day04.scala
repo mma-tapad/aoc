@@ -1,15 +1,17 @@
 package aoc2022
 
 object Day04 extends App {
+  // Given two ranges per line, count the lines where 1 range completely contains another.
   def solution1(ranges: List[(Range, Range)]): Int = {
     ranges.count { case (range1, range2) =>
       range1.contains(range2) || range2.contains(range1)
     }
   }
 
+  // Given two ranges per line, count the lines where 1 range intersects another.
   def solution2(ranges: List[(Range, Range)]): Int = {
     ranges.count { case (range1, range2) =>
-      range1.overlaps(range2)
+      range1.intersects(range2)
     }
   }
 
@@ -34,7 +36,7 @@ case class Range(min: Int, max: Int) {
     min <= num && max >= num
   }
 
-  def overlaps(other: Range): Boolean = {
+  def intersects(other: Range): Boolean = {
     this.contains(other.min) ||
       this.contains(other.max) ||
       other.contains(this)
